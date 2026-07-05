@@ -1,0 +1,130 @@
+name: Personal role lane
+description: 개인 사전 탐색 단계에서 팀원 이름 없이 역할 레인 기반 이슈를 생성합니다.
+title: "[Lane] "
+labels:
+  - planning
+  - personal-exploration
+body:
+  - type: markdown
+    attributes:
+      value: |
+        이 이슈 폼은 팀원 배정표가 아닙니다. 개인 사전 탐색과 pre-project feasibility 확인을 위해 역할 레인, 완료 기준, 데모 증거, 안전 체크를 기록합니다. 팀 프로젝트가 실제로 시작되기 전까지 팀원 이름은 필수가 아닙니다.
+
+  - type: dropdown
+    id: role-lane
+    attributes:
+      label: Role lane
+      description: 사람 이름이 아니라 작업 관점의 레인을 선택합니다.
+      options:
+        - Frontend
+        - Backend
+        - Data/RAG
+        - PM/Docs
+        - QA/Demo
+    validations:
+      required: true
+
+  - type: dropdown
+    id: milestone
+    attributes:
+      label: Milestone
+      description: 이 이슈가 닫을 마일스톤을 선택합니다.
+      options:
+        - M0 - Pre-execution gates
+        - M1 - RAG MVP skeleton
+        - M2 - Multilingual demo hardening
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 문제 정의
+      description: 초기 정착 외국인 또는 운영 관점에서 어떤 문제를 줄이는지 적습니다.
+      placeholder: 예) 광주 공식 출처를 찾기 어려운 외국인 사용자가 체류/생활 정보를 안전하게 확인해야 한다.
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: 이번 이슈 범위
+      description: 이번 이슈에서 완료할 작업과 명시적 비범위를 적습니다.
+      placeholder: 예) 공식 출처 URL 후보를 수집한다. 실제 크롤러 구현은 제외한다.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance criteria
+      description: 완료 판단 기준을 체크 가능한 문장으로 적습니다.
+      placeholder: |
+        - [ ] 광주 공식 출처 URL, 문서명, 갱신일, 언어를 기록했다.
+        - [ ] 출처가 없는 질문에 대해 추측하지 않는 기준을 정했다.
+    validations:
+      required: true
+
+  - type: textarea
+    id: demo-evidence
+    attributes:
+      label: Demo evidence
+      description: 재현 가능한 입력, 출력, 링크, 화면 캡처, 로그 등 증거를 적습니다.
+      placeholder: '예) 질문: "외국인등록은 어디서 확인하나요?" / 기대: 공식 출처 링크 포함 답변'
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: privacy-data-checks
+    attributes:
+      label: Privacy/data checks
+      options:
+        - label: 팀원 이름, 학번, 연락처 등 개인 식별 정보가 이슈 완료 조건에 필요하지 않다.
+          required: true
+        - label: 사용자 개인정보를 repo, issue, screenshot, log에 저장하지 않는다.
+          required: true
+        - label: 공식 공개 출처와 필요한 메타데이터만 사용한다.
+          required: true
+        - label: secret, API key, token, 비밀번호를 repo에 기록하지 않는다.
+          required: true
+
+  - type: checkboxes
+    id: language-checks
+    attributes:
+      label: Language checks
+      options:
+        - label: 한국어 공식 원문 출처를 우선 기준으로 둔다.
+          required: true
+        - label: 쉬운 한국어 설명 필요 여부를 확인했다.
+          required: true
+        - label: 영어 사용자 영향 또는 답변 기준을 확인했다.
+          required: true
+        - label: 베트남어 사용자 영향 또는 답변 기준을 확인했다.
+          required: true
+        - label: 중국어 사용자 영향 또는 답변 기준을 확인했다.
+          required: true
+
+  - type: checkboxes
+    id: deploy-checks
+    attributes:
+      label: Deploy/model checks
+      options:
+        - label: OpenAI/Gemini 우선순위 결정은 첫 실행 이슈 또는 pre-execution gate에서 닫는다.
+          required: true
+        - label: Vercel/Render 계정, billing, env-var 권한은 구현 전 확인 대상으로 둔다.
+          required: true
+        - label: DB 또는 no-DB RAG 저장 방식은 구현 전 확인 대상으로 둔다.
+          required: true
+        - label: CORS, timeout, retry, rate limit, safe model failure 기준을 확인한다.
+          required: true
+        - label: 실제 secret 값은 GitHub issue나 repository에 쓰지 않는다.
+          required: true
+
+  - type: textarea
+    id: blockers
+    attributes:
+      label: Blockers or assumptions
+      description: 아직 확인되지 않은 provider, deployment, data-source 가정을 적습니다. 팀원 이름은 요구하지 않습니다.
+      placeholder: 예) Render 무료 플랜 timeout 제한 확인 필요. Gemini API key 권한 확인 필요.
+    validations:
+      required: false

@@ -1,0 +1,17 @@
+{
+  "name": "honam-is-hackathon",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Personal feasibility MVP workspace for a Honam/Gwangju official-source RAG demo.",
+  "workspaces": [
+    "frontend"
+  ],
+  "scripts": {
+    "frontend:dev": "npm --workspace frontend run dev",
+    "frontend:build": "npm --workspace frontend run build",
+    "frontend:lint": "npm --workspace frontend run lint",
+    "backend:hint": "echo \"Backend hint: cd backend && python -m venv .venv && source .venv/bin/activate && pip install -e . && uvicorn app.main:app --reload\"",
+    "backend:test:hint": "echo \"Backend test hint: cd backend && python -m pytest\"",
+    "db:schema:hint": "echo \"Database hint: psql \\\"$DATABASE_URL\\\" -f database/schema.sql\""
+  }
+}
