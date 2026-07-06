@@ -45,6 +45,29 @@ PostgreSQL/pgvector 계획 스키마 영역입니다.
 
 클라이언트에 노출되는 변수는 `NEXT_PUBLIC_API_BASE_URL`뿐입니다. `OPENAI_API_KEY`, `GEMINI_API_KEY`, `DATABASE_URL` 같은 server-side secret은 frontend bundle에 들어가면 안 됩니다.
 
+## Quick Start
+
+로컬에서 백엔드와 프론트엔드를 함께 띄우는 최소 경로입니다.
+
+터미널 1 - backend:
+
+```bash
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e ".[test]"
+uvicorn app.main:app --reload
+```
+
+터미널 2 - frontend:
+
+```bash
+npm install --workspace frontend
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000 npm run frontend:dev
+```
+
+브라우저에서 `http://localhost:3000`을 열고 데모 질문을 실행합니다. backend 없이 frontend만 실행하면 화면은 명시적으로 표시된 local fallback sample을 보여주며 citation row를 만들지 않습니다.
+
 ## 로컬 setup 명령
 
 아래 명령은 설치와 실행 위치를 문서화하기 위한 힌트입니다. 의존성이 아직 설치되어 있지 않으면 먼저 해당 디렉터리에서 설치해야 합니다.
