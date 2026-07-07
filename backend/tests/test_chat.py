@@ -154,6 +154,20 @@ def test_unsupported_query_refusal_is_localized_to_requested_language() -> None:
     assert payload["citations"] == []
     assert payload["answer"].startswith("I could not find a validated official source")
 
+
+def test_lodging_stay_query_refuses_without_immigration_citations() -> None:
+    response = client.post(
+        "/api/chat",
+        json={"question": "Where can I stay at a hotel near Gwangju Station?", "language": "en"},
+    )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["safety"]["code"] == "source_insufficient"
+    assert payload["safety"]["is_refusal"] is True
+    assert payload["citations"] == []
+    assert payload["answer"].startswith("I could not find a validated official source")
+
 def test_korean_and_easy_korean_paths_have_grounded_and_refusal_coverage() -> None:
     grounded_cases = [
         ("ko", "공식 출처 씨앗 자료 기준 안내입니다."),

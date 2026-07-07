@@ -1,12 +1,20 @@
 from pathlib import Path
 
+import pytest
+
 from app.retrieval import (
     build_institution_cards,
     compose_grounded_answer,
     search_snippets,
     validate_citation,
 )
-from app.source_data import OFFICIAL_SOURCE_URLS, SEEDED_SOURCE_SNIPPETS, SNAPSHOT_HASH_REGISTRY, SourceSnippet, _seed_source_hash
+from app.source_data import (
+    OFFICIAL_SOURCE_URLS,
+    SEEDED_SOURCE_SNIPPETS,
+    SNAPSHOT_HASH_REGISTRY,
+    SourceSnippet,
+    _seed_source_hash,
+)
 
 
 def test_keyword_retrieval_is_deterministic_and_ranks_immigration_1345_first() -> None:
@@ -98,6 +106,42 @@ def test_provider_policy_doc_presence_and_required_policy_terms() -> None:
 
 def test_broad_gwangju_query_without_supported_domain_returns_no_snippets() -> None:
     assert search_snippets("광주에서 가장 맛있는 식당을 추천해줘") == []
+
+
+@pytest.mark.parametrize(
+    "query",
+    [
+        "Where can I stay at a hotel near Gwangju Station?",
+        "Please recommend lodging for my travel stay in Gwangju.",
+        "Is there official tourism guidance on where visitors should stay overnight?",
+    ],
+)
+def test_lodging_and_travel_stay_queries_do_not_retrieve_immigration_sources(query: str) -> None:
+    assert search_snippets(query, limit=3) == []
+
+
+@pytest.mark.parametrize(
+    ("query", "expected_topic"),
+    [
+        ("How can foreign residents check status of stay guidance?", "immigration_portal"),
+        ("Where can I check stay guidance from official sources?", "immigration_portal"),
+        ("외국인 체류 상담 1345", "immigration_hotline"),
+        ("Tôi cần tư vấn nhập cư", "immigration_hotline"),
+        ("外国人医疗保险在哪里确认", "health_insurance"),
+        ("119 ambulance emergency", "fire_medical_emergency"),
+        ("health insurance for foreign residents", "health_insurance"),
+    ],
+)
+def test_supported_official_source_domains_still_retrieve_expected_snippets(
+    query: str,
+    expected_topic: str,
+) -> None:
+    snippets = search_snippets(query, limit=3)
+
+    assert snippets, query
+    assert any(snippet.topic == expected_topic for snippet in snippets), [
+        snippet.id for snippet in snippets
+    ]
 
 def test_chinese_non_emergency_queries_retrieve_supported_sources() -> None:
     visa_snippets = search_snippets("我想查询签证和移民咨询", limit=2)

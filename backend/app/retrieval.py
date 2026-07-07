@@ -22,56 +22,60 @@ from app.source_data import (
 SUPPORTED_LANGUAGE_CODES = {"ko", "easy_ko", "en", "vi", "zh"}
 _WORD_RE = re.compile(r"[0-9A-Za-z가-힣\u4e00-\u9fff]+")
 _DOMAIN_TERM_INPUTS = (
-        "immigration",
-        "visa",
-        "stay",
-        "sojourn",
-        "foreign registration",
-        "alien registration",
-        "foreign resident",
-        "support center",
-        "consultation",
-        "administrative guidance",
-        "life support",
-        "health insurance",
-        "national health insurance",
-        "nhis",
-        "crime",
-        "violence",
-        "threat",
-        "emergency",
-        "ambulance",
-        "rescue",
-        "체류",
-        "비자",
-        "출입국",
-        "외국인등록",
-        "외국인 주민",
-        "외국인주민",
-        "지원센터",
-        "상담",
-        "통번역",
-        "생활 민원",
-        "행정서비스",
-        "건강보험",
-        "국민건강보험",
-        "경찰",
-        "범죄",
-        "폭력",
-        "위협",
-        "응급",
-        "화재",
-        "구급",
-        "tư vấn",
-        "nhập cư",
-        "bảo hiểm y tế",
-        "签证",
-        "移民",
-        "健康保险",
-        "医疗保险",
-        "报警",
-        "急救",
-    )
+    "immigration",
+    "visa",
+    "status of stay",
+    "stay status",
+    "stay guidance",
+    "stay related",
+    "sojourn",
+    "foreign registration",
+    "alien registration",
+    "foreign resident",
+    "foreign residents",
+    "support center",
+    "consultation",
+    "administrative guidance",
+    "life support",
+    "health insurance",
+    "national health insurance",
+    "nhis",
+    "crime",
+    "violence",
+    "threat",
+    "emergency",
+    "ambulance",
+    "rescue",
+    "체류",
+    "비자",
+    "출입국",
+    "외국인등록",
+    "외국인 주민",
+    "외국인주민",
+    "지원센터",
+    "상담",
+    "통번역",
+    "생활 민원",
+    "행정서비스",
+    "건강보험",
+    "국민건강보험",
+    "경찰",
+    "범죄",
+    "폭력",
+    "위협",
+    "응급",
+    "화재",
+    "구급",
+    "tư vấn",
+    "nhập cư",
+    "bảo hiểm y tế",
+    "签证",
+    "移民",
+    "健康保险",
+    "医疗保险",
+    "报警",
+    "急救",
+)
 
 
 def _normalize(value: str) -> str:
@@ -84,9 +88,37 @@ def _tokens(value: str) -> set[str]:
     return set(_normalize(value).split())
 
 
+def _contains_normalized_term(value: str, term: str) -> bool:
+    """Return whether a normalized term appears with safe word boundaries.
+
+    Latin-script single-token terms are matched as whole tokens so generic
+    substrings do not pull unrelated travel/lodging questions into retrieval.
+    Korean and Chinese terms intentionally keep substring matching because they
+    are commonly written without spaces in official-source queries.
+    """
+
+    if not value or not term:
+        return False
+
+    value_tokens = value.split()
+    term_tokens = term.split()
+    if not term_tokens:
+        return False
+
+    if len(term_tokens) == 1:
+        token = term_tokens[0]
+        return token in value_tokens if token.isascii() else token in value
+
+    token_count = len(term_tokens)
+    return any(
+        value_tokens[index : index + token_count] == term_tokens
+        for index in range(len(value_tokens) - token_count + 1)
+    )
+
+
 def _has_supported_domain(query: str) -> bool:
     query_normalized = _normalize(query)
-    return any(term and term in query_normalized for term in _DOMAIN_TERMS)
+    return any(_contains_normalized_term(query_normalized, term) for term in _DOMAIN_TERMS)
 
 
 def _score_snippet(query: str, snippet: SourceSnippet) -> int:
