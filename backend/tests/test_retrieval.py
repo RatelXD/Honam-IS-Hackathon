@@ -96,7 +96,7 @@ def test_institution_cards_are_built_from_valid_official_snippets_only() -> None
 
 
 def test_provider_policy_doc_presence_and_required_policy_terms() -> None:
-    policy = Path("../docs/architecture/model-provider-policy.md").read_text(encoding="utf-8")
+    policy = Path("../docs/04-architecture/model-provider-policy.md").read_text(encoding="utf-8")
 
     assert "disabled/local seeded retrieval" in policy
     assert "OpenAI" in policy

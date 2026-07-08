@@ -1,0 +1,11 @@
+[general]
+ignore=body-is-missing
+
+[title-max-length]
+line-length=100
+
+[title-match-regex]
+regex=^(feat|fix|docs|test|refactor|ci|chore|build|security)\((frontend|backend|database|rag|data|docs|ci|repo|report|security)\): [a-z0-9].+
+
+[title-must-not-contain-word]
+words=wip,todo,tbd
