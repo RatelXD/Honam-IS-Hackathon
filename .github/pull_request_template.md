@@ -17,6 +17,17 @@
 - [ ] Safety / privacy / security
 - [ ] Refactor
 
+## Architecture / Area Impact
+
+- [ ] Frontend
+- [ ] Backend
+- [ ] Database planning
+- [ ] Data / RAG
+- [ ] Docs / report
+- [ ] CI / repo governance
+- [ ] Safety / privacy / security
+- [ ] No architecture area changed
+
 ## Docs Impact
 
 - [ ] Docs updated in the same PR
