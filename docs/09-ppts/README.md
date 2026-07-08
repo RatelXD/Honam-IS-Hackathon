@@ -2,6 +2,6 @@
 
 Presentation planning and slide asset checklists live here.
 
-Planned/current documents:
+Current documents:
 
-- `index.md` - presentation storyline, screenshots, and demo evidence checklist.
+- [Presentation plan](./index.md)

@@ -6,4 +6,4 @@ Current documents:
 
 - [Git branch, commit, and PR convention](./conv-git-branch-and-pr.md)
 - [Repository structure convention](./conv-repo-structure.md)
-- `conv-final-report-writing.md` - planned report-writing convention.
+- [Final report writing convention](./conv-final-report-writing.md)
