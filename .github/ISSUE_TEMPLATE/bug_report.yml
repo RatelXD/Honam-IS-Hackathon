@@ -1,0 +1,80 @@
+name: Bug report
+description: Report a reproducible bug or safety regression.
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use synthetic examples or redacted logs. Do not paste raw user questions, personal data, API keys, tokens, or private account details.
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: Current behavior
+      description: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: What should have happened?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Use a synthetic question or redacted input.
+      placeholder: |
+        1. Start backend with ...
+        2. Open frontend at ...
+        3. Submit synthetic question ...
+        4. Observe ...
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Frontend
+        - Backend
+        - Data/RAG
+        - Safety/Privacy
+        - Docs/Report
+        - CI/Repo
+        - Database planning
+    validations:
+      required: true
+  - type: textarea
+    id: safety-citation-impact
+    attributes:
+      label: Safety or citation impact
+      description: Does this affect refusal, emergency routing, official-source grounding, or citation validation?
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, browser, Python/Node versions, branch, commit, and command used.
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Redacted logs or evidence
+      description: Remove secrets and personal data before attaching.
+    validations:
+      required: false
+  - type: checkboxes
+    id: privacy-checks
+    attributes:
+      label: Privacy and secret checks
+      options:
+        - label: I did not include raw personal questions, personal data, API keys, tokens, passwords, or private account details.
+          required: true
+        - label: Any screenshot or log is redacted or synthetic.
+          required: true

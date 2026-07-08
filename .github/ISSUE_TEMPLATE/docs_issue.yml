@@ -1,0 +1,41 @@
+name: Docs issue
+description: Report stale, missing, or unclear documentation.
+title: "[Docs] "
+labels:
+  - documentation
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page or path
+      placeholder: "docs/04-architecture/api-contract.md"
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: What is stale, missing, or incorrect?
+    validations:
+      required: true
+  - type: textarea
+    id: source-of-truth
+    attributes:
+      label: Source of truth or evidence
+      description: Link code paths, official-source entries, command output, or accepted decisions.
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-fix
+    attributes:
+      label: Proposed fix
+    validations:
+      required: false
+  - type: checkboxes
+    id: safety-checks
+    attributes:
+      label: Safety and privacy checks
+      options:
+        - label: This issue does not include secrets, personal data, private contact details, or raw user questions.
+          required: true
+        - label: If the docs affect official sources, citation behavior, provider gates, or deployment claims, that impact is described above.
+          required: true
