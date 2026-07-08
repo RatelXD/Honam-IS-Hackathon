@@ -53,6 +53,15 @@ pre-commit install --hook-type pre-commit --hook-type commit-msg
 pre-commit run --all-files
 ```
 
+
+The local hook set intentionally excludes heavier template automation from the reference repositories: GitLab CI linter, shell helper scripts, dirty-tree checks, Bats tests, broad anti-TODO text scans, shellcheck/shfmt until shell scripts exist, release automation, and push-time changelog generation.
+
+Commit message policy can be checked with:
+
+```bash
+gitlint --msg-filename /path/to/message.txt
+```
+
 ## Privacy And Secret Rules
 
 Never commit:
