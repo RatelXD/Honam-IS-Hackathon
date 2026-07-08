@@ -19,8 +19,8 @@ Core rule: answer only from verified official sources. Do not invent citations, 
 - `backend/app/` - FastAPI app, schemas, settings, safety classifier, seeded retrieval, and official-source seed data.
 - `backend/tests/` - Pytest suites for API contract, safety/redaction, retrieval/citation validation, and health/settings behavior.
 - `database/` - PostgreSQL/pgvector schema planning only.
-- `docs/architecture/` - API contract, MVP boundaries, provider policy, and deployment precheck; keep these in sync with behavior changes.
-- `docs/planning/` - Source inventory, representative questions, glossary, and gate/checklist materials.
+- `docs/04-architecture/` - API contract, MVP boundaries, provider policy, and deployment precheck; keep these in sync with behavior changes.
+- `docs/05-work-items/` - Source inventory, representative questions, glossary, and gate/checklist materials.
 
 ## Development Commands
 
@@ -79,7 +79,7 @@ psql "$DATABASE_URL" -f database/schema.sql
 - `frontend/app/page.tsx` - Main demo UI, local fixtures, `/api/chat` fetch flow, fallback behavior, inline styles.
 - `package.json`, `frontend/package.json`, `backend/pyproject.toml` - Canonical scripts, dependencies, Python version, pytest config.
 - `.env.example` - Variable names only; never fill with real secrets.
-- `docs/architecture/api-contract.md` - API shapes and safety/error code contract.
+- `docs/04-architecture/api-contract.md` - API shapes and safety/error code contract.
 
 ## Runtime/Tooling Preferences
 

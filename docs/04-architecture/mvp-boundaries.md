@@ -19,7 +19,7 @@
 
 ## 공식 출처 RAG 경계
 
-- 근거는 `docs/planning/official-source-inventory.md`의 공식 출처 클래스만 사용한다.
+- 근거는 `docs/05-work-items/official-source-inventory.md`의 공식 출처 클래스만 사용한다.
 - 실제 `source_url`, `source_hash`/`snapshot_id`, `checked_at`은 첫 실행 이슈에서 사람이 확인한 뒤 기록한다.
 - `status=active`와 citation validation이 통과한 청크만 답변 근거로 쓴다.
 - `stale` 또는 출처 부족이면 답변을 만들지 않고 기관 연결을 우선한다.

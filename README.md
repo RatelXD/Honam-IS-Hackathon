@@ -9,7 +9,7 @@
 - 출처가 없거나 확신할 수 없는 질문은 추측하지 않고 안전하게 거절합니다.
 - 사용자의 원문 질문이나 개인정보를 저장하지 않습니다.
 - secret, API key, token, 개인 계정 비밀번호는 저장소에 커밋하지 않습니다.
-- 모델 provider, 공식 출처, DB/RAG 저장 방식, 배포 가능 여부는 `docs/planning/`의 gate 문서에서 추적합니다.
+- 모델 provider, 공식 출처, DB/RAG 저장 방식, 배포 가능 여부는 `docs/05-work-items/`의 gate 문서에서 추적합니다.
 
 ## 작업 영역 경계
 
@@ -37,7 +37,7 @@ PostgreSQL/pgvector 계획 스키마 영역입니다.
 
 - 공식 출처, 검색 청크, 대표 질문, 기관 카드, 비식별 감사 이벤트를 설계합니다.
 - 현재 스키마는 planning-grade skeleton이며 실제 운영 migration이 아닙니다.
-- pgvector 사용 여부, 임베딩 모델, 보관 정책은 `docs/planning/` gate에서 확정합니다.
+- pgvector 사용 여부, 임베딩 모델, 보관 정책은 `docs/05-work-items/` gate에서 확정합니다.
 
 ## 환경변수
 
@@ -115,7 +115,7 @@ psql "$DATABASE_URL" -f database/schema.sql
 
 ## planning gate
 
-다음 결정과 evidence는 `docs/planning/` 아래 문서에서 관리합니다.
+다음 결정과 evidence는 `docs/05-work-items/` 아래 문서에서 관리합니다.
 
 - 공식 출처 인벤토리와 최신성 확인
 - 대표 질문과 citation validation
@@ -129,6 +129,6 @@ psql "$DATABASE_URL" -f database/schema.sql
 
 ## 추가 문서
 
-- `docs/architecture/mvp-boundaries.md`: MVP 컴포넌트 경계와 비범위
-- `docs/architecture/api-contract.md`: `/health`, `/api/chat` 초기 계약
-- `docs/architecture/deployment-precheck.md`: Vercel/Render, CORS, timeout, rate limit, DB/pgvector 사전 확인
+- `docs/04-architecture/mvp-boundaries.md`: MVP 컴포넌트 경계와 비범위
+- `docs/04-architecture/api-contract.md`: `/health`, `/api/chat` 초기 계약
+- `docs/04-architecture/deployment-precheck.md`: Vercel/Render, CORS, timeout, rate limit, DB/pgvector 사전 확인
