@@ -28,16 +28,16 @@ related:
 | Safety classifier | Local MVP scaffold | `backend/app/safety.py`, `backend/tests/test_safety.py` |
 | Retrieval/citation validation | Local deterministic seeded retrieval | `backend/app/retrieval.py`, `backend/app/source_data.py`, retrieval tests |
 | Database | Planning schema only | `database/schema.sql` |
-| Docs governance | In progress on this branch | `docs/index.md`, numbered docs taxonomy, conventions |
+| Docs governance | In progress on this branch | `docs/index.md`, numbered docs taxonomy, conventions, CI workflow |
 
 ## Open Gates
 
 - Official source URLs, hashes, checked dates, and active/stale status require first-execution verification.
 - OpenAI/Gemini/provider priority is not chosen.
 - Vercel/Render/database deployment is not confirmed.
-- Branch protection is a repository setting recommendation, not yet enforced by files.
-- Local pre-commit is recommended parity; GitHub Actions should become the required PR gate once added.
-- Changelog/release automation is deferred.
+- GitHub Actions CI workflow is added in this branch, but branch protection still requires repository settings configuration.
+- Local pre-commit is recommended parity and is not enforced as a required local hook policy.
+- Changelog/release automation and push-time release workflows are deferred.
 
 ## Known Limitations
 
